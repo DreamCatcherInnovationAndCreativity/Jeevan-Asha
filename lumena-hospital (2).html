@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- skill:chrome -->
+<style>
+/* Credit line — bottom-right */
+.design-ui-credit {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  font: 11px/1 system-ui, sans-serif;
+  color: rgba(128,128,128,0.5);
+  pointer-events: none;
+  z-index: 2147483647;
+  transition: opacity 0.4s ease;
+  user-select: none;
+  letter-spacing: 0.02em;
+}
+
+/* Hide chrome on touch devices */
+@media (hover: none) {
+  .design-ui-credit { display: none; }
+}
+
+/* Print fixes */
+@media print {
+  * {
+    transition: none !important;
+    animation: none !important;
+    box-shadow: none !important;
+  }
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .design-ui-credit { display: none !important; }
+}
+
+</style>
+<script>
+(function () {
+    // Design-ui pages are single compositions, so the whole body is editable.
+    function markEditable() {
+        document.body.classList.add('artifact-editable');
+    }
+
+    // Credit badge with idle-fade. Hover devices only.
+    function initChromeUI() {
+        if (!matchMedia('(hover: hover)').matches) return;
+
+        var credit = document.createElement('div');
+        credit.className = 'design-ui-credit';
+        credit.setAttribute('aria-hidden', 'true');
+        credit.innerHTML = '\u{1F49C} by ClickUp Brain';
+        document.body.appendChild(credit);
+
+        var timer = null;
+        var fade = function (out) { credit.style.opacity = out ? '0' : ''; };
+        fade(true);
+        var show = function () {
+            fade(false);
+            clearTimeout(timer);
+            timer = setTimeout(function () { fade(true); }, 3000);
+        };
+        document.addEventListener('mousemove', show);
+        show();
+    }
+
+    function init() {
+        markEditable();
+        initChromeUI();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+
+</script>
+<!-- /skill:chrome -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lumena Health | Care, considered.</title>
+  <meta name="description" content="Lumena Health is a premium, patient-first hospital for thoughtful, connected care." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: oklch(23% .025 245);
+      --muted: oklch(48% .025 245);
+      --quiet: oklch(65% .02 245);
+      --paper: oklch(97% .012 90);
+      --surface: oklch(99% .008 90);
+      --line: oklch(88% .025 245);
+      --mist: oklch(92% .04 204);
+      --teal: oklch(49% .14 191);
+      --teal-deep: oklch(35% .1 196);
+      --coral: oklch(68% .13 35);
+      --shadow: 0 18px 60px oklch(30% .03 245 / .08);
+      --radius: 18px;
+      --ease: cubic-bezier(.16,1,.3,1);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: 'DM Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.5; font-optical-sizing: auto; }
+    body:has(dialog[open]) { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { text-wrap: balance; }
+    p { text-wrap: pretty; }
+    .shell { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
+    .topline { height: 38px; background: var(--teal-deep); color: oklch(95% .03 190); display: flex; align-items: center; font-size: 12px; letter-spacing: .05em; }
+    .topline .shell { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+    .topline a { text-decoration: underline; text-underline-offset: 3px; }
+    header { position: sticky; top: 0; z-index: 10; background: oklch(97% .012 90 / .94); backdrop-filter: blur(14px); border-bottom: 1px solid oklch(88% .025 245 / .8); }
+    .nav { height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 700; letter-spacing: -.02em; }
+    .brand-mark { width: 34px; height: 34px; border-radius: 11px; background: var(--teal); color: var(--surface); display: grid; place-items: center; font-size: 20px; line-height: 1; }
+    .brand span { font-size: 18px; }
+    nav { display: flex; align-items: center; gap: 30px; color: var(--muted); font-size: 14px; }
+    nav a { transition: color 180ms ease; }
+    nav a:hover, nav a.active { color: var(--teal-deep); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .btn { min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid transparent; display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600; transition: transform 180ms var(--ease), background 180ms ease, color 180ms ease, border-color 180ms ease; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); }
+    .btn:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+    .btn-primary { background: var(--teal); color: var(--surface); }
+    .btn-primary:hover { background: var(--teal-deep); }
+    .btn-quiet { background: transparent; border-color: var(--line); color: var(--ink); }
+    .btn-quiet:hover { background: var(--surface); border-color: var(--teal); }
+    .menu-toggle { display: none; border: 0; background: none; color: var(--ink); font-size: 24px; width: 44px; height: 44px; }
+
+    .hero { padding: 72px 0 86px; overflow: hidden; position: relative; }
+    .hero::before { content: ''; position: absolute; width: 560px; height: 560px; right: -170px; top: -220px; border-radius: 50%; background: oklch(91% .06 190 / .55); filter: blur(2px); z-index: -1; }
+    .hero-grid { display: grid; grid-template-columns: 1.03fr .97fr; align-items: center; gap: 72px; }
+    .eyebrow { color: var(--teal-deep); font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 22px; }
+    .hero h1 { font: 600 clamp(3rem, 6vw, 5.9rem)/.99 'Playfair Display', Georgia, serif; letter-spacing: -.055em; max-width: 680px; }
+    .hero h1 em { color: var(--teal); font-style: normal; }
+    .hero-copy { color: var(--muted); max-width: 50ch; font-size: 18px; margin-top: 28px; }
+    .hero-actions { display: flex; align-items: center; gap: 14px; margin-top: 34px; flex-wrap: wrap; }
+    .trust-line { display: flex; align-items: center; gap: 12px; margin-top: 30px; color: var(--muted); font-size: 13px; }
+    .avatars { display: flex; }
+    .avatar { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--paper); margin-left: -7px; display: grid; place-items: center; color: var(--surface); font-size: 10px; font-weight: 700; }
+    .avatar:first-child { margin-left: 0; background: var(--teal-deep); }
+    .avatar:nth-child(2) { background: var(--coral); }
+    .avatar:nth-child(3) { background: oklch(48% .08 290); }
+    .hero-visual { min-height: 500px; border-radius: 34px; position: relative; background: var(--mist); overflow: hidden; box-shadow: var(--shadow); }
+    .hero-image-placeholder { position: absolute; inset: 0; background: linear-gradient(145deg, oklch(88% .06 190), oklch(72% .12 183)); display: grid; place-items: center; color: oklch(35% .08 190); }
+    .hero-image-placeholder::before { content: ''; width: 65%; height: 75%; border: 1px solid oklch(100% 0 0 / .35); border-radius: 46% 54% 58% 42% / 44% 38% 62% 56%; transform: rotate(-14deg); }
+    .image-note { position: absolute; inset: auto 24px 22px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: oklch(30% .06 190); }
+    .hero-note { position: absolute; left: -30px; bottom: 34px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 17px 18px; box-shadow: var(--shadow); max-width: 220px; }
+    .hero-note strong { display: block; font-size: 13px; margin-bottom: 4px; }
+    .hero-note small { display: block; color: var(--muted); font-size: 12px; line-height: 1.4; }
+    .pulse { width: 10px; height: 10px; background: var(--coral); border-radius: 50%; display: inline-block; margin-right: 6px; }
+
+    .strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--surface); }
+    .strip-inner { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .strip-item { min-height: 96px; padding: 22px 24px; border-right: 1px solid var(--line); display: flex; align-items: center; gap: 14px; }
+    .strip-item:last-child { border-right: 0; }
+    .strip-icon { color: var(--teal); font-size: 22px; width: 30px; text-align: center; }
+    .strip-item strong { display: block; font-size: 14px; }
+    .strip-item span { color: var(--muted); font-size: 12px; }
+
+    section { padding: 112px 0; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 46px; }
+    .section-kicker { color: var(--teal); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; margin-bottom: 14px; }
+    .section-head h2 { font: 500 clamp(2.2rem, 4vw, 3.7rem)/1.06 'Playfair Display', Georgia, serif; letter-spacing: -.04em; max-width: 600px; }
+    .section-head p { color: var(--muted); max-width: 38ch; font-size: 15px; }
+    .services-grid { display: grid; grid-template-columns: 1.15fr .85fr .85fr; grid-template-rows: 1fr 1fr; gap: 16px; }
+    .service { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; min-height: 190px; position: relative; overflow: hidden; transition: transform 240ms var(--ease), box-shadow 240ms ease, border-color 240ms ease; }
+    .service:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: oklch(75% .08 190); }
+    .service.featured { grid-row: span 2; background: var(--teal-deep); color: oklch(97% .02 190); display: flex; flex-direction: column; justify-content: space-between; min-height: 396px; }
+    .service.featured::after { content: '✦'; position: absolute; right: 24px; top: 20px; color: oklch(78% .12 35); font-size: 24px; }
+    .service-icon { color: var(--teal); font-size: 25px; margin-bottom: 28px; }
+    .featured .service-icon { color: oklch(83% .11 190); }
+    .service h3 { font-size: 21px; letter-spacing: -.03em; margin-bottom: 10px; }
+    .service p { color: var(--muted); font-size: 14px; max-width: 29ch; }
+    .featured p { color: oklch(86% .03 190); }
+    .service-link { display: inline-flex; margin-top: 22px; font-size: 13px; font-weight: 700; color: var(--teal); gap: 7px; }
+    .featured .service-link { color: oklch(88% .12 35); }
+
+    .story { background: var(--teal-deep); color: var(--surface); position: relative; overflow: hidden; }
+    .story::after { content: ''; position: absolute; width: 430px; height: 430px; right: -100px; top: -140px; border: 1px solid oklch(85% .08 190 / .22); border-radius: 50%; box-shadow: 0 0 0 52px oklch(85% .08 190 / .06), 0 0 0 104px oklch(85% .08 190 / .045); }
+    .story-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 96px; align-items: start; position: relative; z-index: 1; }
+    .story h2 { font: 500 clamp(2.3rem, 4vw, 4rem)/1.05 'Playfair Display', Georgia, serif; letter-spacing: -.04em; }
+    .story-copy { max-width: 52ch; color: oklch(86% .03 190); font-size: 17px; }
+    .story-copy p + p { margin-top: 20px; }
+    .story-signature { display: flex; align-items: center; gap: 14px; margin-top: 34px; font-size: 13px; color: oklch(84% .03 190); }
+    .signature-mark { font: 500 28px 'Playfair Display', serif; color: oklch(90% .08 35); }
+    .quote { padding: 28px 0 0; border-top: 1px solid oklch(90% .04 190 / .35); font: 500 29px/1.18 'Playfair Display', Georgia, serif; color: oklch(95% .02 190); max-width: 640px; }
+
+    .booking { background: oklch(94% .035 190); }
+    .booking-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 82px; align-items: start; }
+    .booking h2 { font: 500 clamp(2.3rem, 4vw, 3.8rem)/1.05 'Playfair Display', Georgia, serif; letter-spacing: -.04em; }
+    .booking-intro { color: var(--muted); max-width: 40ch; margin-top: 18px; }
+    .contact-mini { display: grid; gap: 16px; margin-top: 38px; }
+    .contact-mini div { display: flex; gap: 14px; align-items: center; }
+    .contact-mini b { font-size: 20px; color: var(--teal); }
+    .contact-mini span { color: var(--muted); font-size: 13px; }
+    .form-panel { background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 32px; box-shadow: 0 12px 40px oklch(30% .03 245 / .06); }
+    .form-panel h3 { font-size: 20px; margin-bottom: 24px; letter-spacing: -.02em; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .field { display: grid; gap: 8px; }
+    .field.full { grid-column: 1 / -1; }
+    label { font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: .04em; }
+    input, select { width: 100%; min-height: 48px; border: 1px solid var(--line); border-radius: 10px; background: var(--paper); color: var(--ink); padding: 0 13px; transition: border-color 180ms ease, box-shadow 180ms ease; }
+    input::placeholder { color: var(--quiet); }
+    input:focus, select:focus { border-color: var(--teal); box-shadow: 0 0 0 4px oklch(70% .1 190 / .16); outline: none; }
+    .form-foot { margin-top: 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .form-foot small { color: var(--quiet); font-size: 11px; max-width: 29ch; }
+    .form-success { display: none; align-items: flex-start; gap: 12px; background: oklch(93% .06 160); border: 1px solid oklch(78% .1 160); padding: 16px; border-radius: 12px; margin-top: 20px; color: oklch(35% .08 160); font-size: 14px; }
+    .form-success.show { display: flex; }
+
+    .contact { padding-top: 100px; }
+    .contact-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 16px; }
+    .contact-main { background: var(--surface); border: 1px solid var(--line); border-radius: 24px; padding: 34px; }
+    .contact-main h2 { font: 500 3rem/1.05 'Playfair Display', Georgia, serif; letter-spacing: -.04em; }
+    .contact-main > p { color: var(--muted); max-width: 48ch; margin-top: 16px; }
+    .contact-info { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 38px; }
+    .info-block small { display: block; color: var(--teal); font-weight: 700; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 7px; }
+    .info-block span { display: block; color: var(--muted); font-size: 14px; }
+    .map-placeholder { border-radius: 24px; min-height: 310px; background: oklch(89% .045 190); position: relative; overflow: hidden; display: grid; place-items: center; }
+    .map-placeholder::before, .map-placeholder::after { content: ''; position: absolute; width: 150%; height: 1px; background: oklch(75% .08 190 / .45); transform: rotate(28deg); }
+    .map-placeholder::after { transform: rotate(-18deg); width: 120%; }
+    .map-pin { position: relative; z-index: 1; width: 48px; height: 48px; border-radius: 50% 50% 50% 5px; transform: rotate(-45deg); background: var(--coral); display: grid; place-items: center; color: var(--surface); box-shadow: 0 8px 20px oklch(55% .13 35 / .35); }
+    .map-pin span { transform: rotate(45deg); font-size: 19px; }
+    footer { padding: 34px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 20px; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a:hover { color: var(--teal); }
+    dialog { border: 0; border-radius: 22px; padding: 0; width: min(480px, calc(100% - 32px)); color: var(--ink); box-shadow: 0 24px 90px oklch(20% .04 245 / .26); }
+    dialog::backdrop { background: oklch(24% .04 245 / .48); }
+    .dialog-inner { padding: 32px; }
+    .dialog-inner h3 { font: 500 2rem/1.1 'Playfair Display', Georgia, serif; margin-bottom: 10px; }
+    .dialog-inner p { color: var(--muted); font-size: 14px; }
+    .dialog-close { float: right; border: 0; background: none; font-size: 24px; color: var(--muted); width: 36px; height: 36px; }
+    .dialog-actions { display: flex; gap: 10px; margin-top: 24px; justify-content: flex-end; }
+    @media (max-width: 900px) {
+      .hero-grid, .booking-grid, .story-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .hero { padding-top: 54px; }
+      .hero-visual { min-height: 430px; width: min(100%, 650px); }
+      .story-grid { gap: 34px; }
+      .story::after { opacity: .35; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .service.featured { grid-row: span 2; }
+      .booking-grid { gap: 38px; }
+    }
+    @media (max-width: 680px) {
+      .shell { width: min(100% - 32px, 1180px); }
+      .topline { font-size: 10px; }
+      .topline .shell { justify-content: center; }
+      .topline .shell span { display: none; }
+      .nav { height: 68px; }
+      nav, .nav-actions .btn-quiet { display: none; }
+      .menu-toggle { display: block; }
+      header.menu-open nav { display: flex; position: absolute; left: 16px; right: 16px; top: 76px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; flex-direction: column; align-items: stretch; gap: 0; box-shadow: var(--shadow); }
+      header.menu-open nav a { padding: 14px 10px; border-bottom: 1px solid var(--line); }
+      header.menu-open nav a:last-child { border-bottom: 0; }
+      .hero { padding: 48px 0 62px; }
+      .hero h1 { font-size: clamp(3rem, 15vw, 4.6rem); }
+      .hero-copy { font-size: 16px; }
+      .hero-visual { min-height: 350px; border-radius: 24px; }
+      .hero-note { left: 14px; bottom: 14px; }
+      .strip-inner { grid-template-columns: 1fr 1fr; }
+      .strip-item { min-height: 82px; padding: 15px 10px; border-bottom: 1px solid var(--line); }
+      .strip-item:nth-child(2) { border-right: 0; }
+      .strip-item:nth-child(3), .strip-item:nth-child(4) { border-bottom: 0; }
+      section { padding: 76px 0; }
+      .section-head { display: block; margin-bottom: 30px; }
+      .section-head p { margin-top: 16px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service.featured { grid-row: auto; min-height: 280px; }
+      .form-panel { padding: 22px; }
+      .form-grid, .contact-info { grid-template-columns: 1fr; }
+      .field.full { grid-column: auto; }
+      .form-foot { align-items: stretch; flex-direction: column; }
+      .form-foot .btn { width: 100%; }
+      .contact-main h2 { font-size: 2.5rem; }
+      .footer-inner { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <div class="topline"><div class="shell"><span>Private care, made more human.</span><a href="tel:+18005550147">24/7 care line: +1 (800) 555-0147</a></div></div>
+  <header id="site-header">
+    <div class="shell nav">
+      <a class="brand" href="#home" aria-label="Lumena Health home"><b class="brand-mark">+</b><span>Lumena Health</span></a>
+      <nav aria-label="Primary navigation">
+        <a class="active" href="#home">Home</a><a href="#care">Our care</a><a href="#story">About us</a><a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-actions"><a class="btn btn-quiet" href="#contact">Call us</a><a class="btn btn-primary" href="#booking">Book a visit <span aria-hidden="true">↗</span></a><button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button></div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="shell hero-grid">
+        <div>
+          <div class="eyebrow">Thoughtful care, every day</div>
+          <h1>A better feeling about <em>healthcare.</em></h1>
+          <p class="hero-copy">A calm, connected hospital for the moments that matter. From your first question to your last follow-up, you are looked after by people who listen.</p>
+          <div class="hero-actions"><a class="btn btn-primary" href="#booking">Find your care team <span aria-hidden="true">↗</span></a><a class="btn btn-quiet" href="#care">Explore services</a></div>
+          <div class="trust-line"><div class="avatars"><i class="avatar">A</i><i class="avatar">M</i><i class="avatar">J</i></div><span>Trusted by 12,000+ patients and families</span></div>
+        </div>
+        <div class="hero-visual" aria-label="Image placeholder for hospital photography"><div class="hero-image-placeholder"><span class="image-note">Your hospital image goes here</span></div><div class="hero-note"><strong><i class="pulse"></i>Appointments today</strong><small>Same-week consultations available across 14 specialties.</small></div></div>
+      </div>
+    </section>
+
+    <div class="strip"><div class="shell strip-inner"><div class="strip-item"><span class="strip-icon">✦</span><div><strong>Patient-first</strong><span>Care built around you</span></div></div><div class="strip-item"><span class="strip-icon">⌁</span><div><strong>Always connected</strong><span>Your team, in sync</span></div></div><div class="strip-item"><span class="strip-icon">◌</span><div><strong>14 specialties</strong><span>Expertise, together</span></div></div><div class="strip-item"><span class="strip-icon">↗</span><div><strong>Open 24/7</strong><span>Here when you need us</span></div></div></div></div>
+
+    <section id="care"><div class="shell"><div class="section-head"><div><div class="section-kicker">Care, without the maze</div><h2>Everything you need, under one roof.</h2></div><p>Clear guidance, excellent clinicians, and a care experience that respects your time and your whole life.</p></div>
+      <div class="services-grid">
+        <article class="service featured"><div><div class="service-icon">◒</div><h3>Specialist consultations</h3><p>Find the right expert without the runaround. Our teams collaborate around your needs, not their departments.</p></div><a class="service-link" href="#booking">Meet your team <span>↗</span></a></article>
+        <article class="service"><div class="service-icon">⌁</div><h3>Diagnostics</h3><p>Answers with less waiting and more context.</p><a class="service-link" href="#booking">Learn more <span>↗</span></a></article>
+        <article class="service"><div class="service-icon">♡</div><h3>Women’s health</h3><p>Thoughtful support through every chapter.</p><a class="service-link" href="#booking">Learn more <span>↗</span></a></article>
+        <article class="service"><div class="service-icon">⌂</div><h3>Day surgery</h3><p>Modern procedures, a gentler way home.</p><a class="service-link" href="#booking">Learn more <span>↗</span></a></article>
+        <article class="service"><div class="service-icon">✧</div><h3>Preventive care</h3><p>Small steps that keep you moving forward.</p><a class="service-link" href="#booking">Learn more <span>↗</span></a></article>
+      </div>
+    </div></section>
+
+    <section class="story" id="story"><div class="shell story-grid"><div><div class="section-kicker" style="color: oklch(84% .1 190)">Why Lumena</div><h2>Medicine is science. Care is personal.</h2><div class="story-signature"><span class="signature-mark">Dr. S. Mehta</span><span>Medical Director, Lumena Health</span></div></div><div class="story-copy"><p>Good healthcare should leave you feeling informed, not overwhelmed. That is why we bring specialists, nurses, diagnostics, and support teams into one considered experience.</p><p>We are here to make the next step clearer, the hard days lighter, and the good days longer.</p><div class="quote">“The first thing they gave us was time. That changed everything.”</div></div></div></section>
+
+    <section class="booking" id="booking"><div class="shell booking-grid"><div><div class="section-kicker">Start here</div><h2>Let’s find the right next step.</h2><p class="booking-intro">Tell us a little about what you need. Our care coordinators will call you back during your preferred window.</p><div class="contact-mini"><div><b>☎</b><span><strong>+1 (800) 555-0147</strong><br>Available around the clock</span></div><div><b>⌖</b><span><strong>18 Willow Lane, Boston</strong><br>Easy access, thoughtful spaces</span></div></div></div>
+        <form class="form-panel" id="booking-form"><h3>Request an appointment</h3><div class="form-grid"><div class="field"><label for="name">FULL NAME</label><input id="name" name="name" required placeholder="Your name" /></div><div class="field"><label for="phone">PHONE NUMBER</label><input id="phone" name="phone" type="tel" required placeholder="+1 (555) 000-0000" /></div><div class="field"><label for="specialty">CARE AREA</label><select id="specialty" name="specialty" required><option value="">Choose a service</option><option>Specialist consultation</option><option>Diagnostics</option><option>Women’s health</option><option>Day surgery</option><option>Preventive care</option></select></div><div class="field"><label for="date">PREFERRED DATE</label><input id="date" name="date" type="date" required /></div><div class="field full"><label for="note">HOW CAN WE HELP? <span style="font-weight:400">(OPTIONAL)</span></label><input id="note" name="note" placeholder="A short note for our care team" /></div></div><div class="form-foot"><small>By submitting, you agree to be contacted by Lumena Health about your request.</small><button class="btn btn-primary" type="submit">Send request <span>↗</span></button></div><div class="form-success" id="form-success" role="status"><strong>✓</strong><span>Thanks, <b id="success-name">there</b>. Your request is in. A care coordinator will be in touch soon.</span></div></form>
+      </div></section>
+
+    <section class="contact" id="contact"><div class="shell contact-grid"><div class="contact-main"><div class="section-kicker">Come see us</div><h2>Good care starts with a hello.</h2><p>Whether you are planning ahead or need help today, our team can point you in the right direction.</p><div class="contact-info"><div class="info-block"><small>Visit</small><span>18 Willow Lane<br>Boston, MA 02116</span></div><div class="info-block"><small>Call</small><span>+1 (800) 555-0147<br>hello@lumena.health</span></div><div class="info-block"><small>Hours</small><span>Hospital: 24/7<br>Clinics: Mon to Sat, 8am to 8pm</span></div><div class="info-block"><small>Parking</small><span>Underground parking<br>Entrance on Willow Lane</span></div></div></div><div class="map-placeholder" aria-label="Map placeholder for hospital location"><div class="map-pin"><span>+</span></div></div></div></section>
+  </main>
+  <footer><div class="shell footer-inner"><span>© 2026 Lumena Health. Care, considered.</span><div class="footer-links"><a href="#">Privacy</a><a href="#">Accessibility</a><a href="#contact">Contact</a></div></div></footer>
+
+  <dialog id="call-dialog"><div class="dialog-inner"><button class="dialog-close" aria-label="Close">×</button><h3>We’re here.</h3><p>Call our care line any time. A real person will help you find the right next step.</p><div class="dialog-actions"><button class="btn btn-quiet dialog-close">Not now</button><a class="btn btn-primary" href="tel:+18005550147">Call +1 (800) 555-0147</a></div></div></dialog>
+  <script>
+    const header = document.querySelector('#site-header');
+    const menu = document.querySelector('.menu-toggle');
+    menu.addEventListener('click', () => { const open = header.classList.toggle('menu-open'); menu.setAttribute('aria-expanded', open); menu.textContent = open ? '×' : '☰'; });
+    document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', () => { header.classList.remove('menu-open'); menu.setAttribute('aria-expanded', 'false'); menu.textContent = '☰'; }));
+    const sections = [...document.querySelectorAll('main section[id]')];
+    const navLinks = [...document.querySelectorAll('nav a')];
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id)); }), { rootMargin: '-35% 0px -55% 0px' });
+    sections.forEach(section => observer.observe(section));
+    const form = document.querySelector('#booking-form');
+    form.addEventListener('submit', event => { event.preventDefault(); document.querySelector('#success-name').textContent = document.querySelector('#name').value || 'there'; document.querySelector('#form-success').classList.add('show'); form.querySelector('button[type="submit"]').textContent = 'Request sent ✓'; form.querySelector('button[type="submit"]').disabled = true; });
+    const dialog = document.querySelector('#call-dialog');
+    document.querySelector('a[href="#contact"].btn-quiet').addEventListener('click', event => { event.preventDefault(); dialog.showModal(); });
+    document.querySelectorAll('.dialog-close').forEach(button => button.addEventListener('click', () => dialog.close()));
+  </script>
+</body>
+</html>
